@@ -1,0 +1,41 @@
+html, body {
+    font: 1em "Courier New", monospace;
+    height: 100%;
+    margin: 0;
+}
+
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: black;
+}
+
+#page {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    z-index: 2;
+}
+
+.overlay {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 0.5em ridge #151515;
+}
+
+#history {
+    flex-basis: 12.5em;
+}
+
+#main {
+    flex: 1;
+}
+
+#terminal {
+    margin: 2.5% 10%;
+    width: 80%;
+    height: 50%;
+}
