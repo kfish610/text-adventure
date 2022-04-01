@@ -6,13 +6,13 @@ let lastTime;
 let blur = true;
 
 function resize() {
+    console.log("test");
     var dpr = window.devicePixelRatio || 1;
     var rect = ctx.canvas.getBoundingClientRect();
 
     ctx.canvas.width = rect.width * dpr;
     ctx.canvas.height = rect.height * dpr;
 
-    ctx.scale(dpr, dpr);
     ctx.filter = blur ? "blur(50px)" : "";
 }
 
@@ -57,8 +57,9 @@ window.onload = () => {
 };
 
 document.onvisibilitychange = () => {
-    console.log(document.visibilityState);
-    lastTime = null;
+    if (document.visibilityState == "visible") {
+        lastTime = null;
+    }
 };
 
 class Bubble {
