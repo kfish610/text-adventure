@@ -5,19 +5,6 @@ let ctx;
 let lastTime;
 let blur = true;
 
-$(document).ready(() => {
-    let canvas = $("#background")[0];
-
-    ctx = canvas.getContext("2d");
-    resize();
-
-    for (let i = 0; i < 75; i++) {
-        bubbles[i] = new Bubble();
-    }
-
-    window.requestAnimationFrame(draw);
-});
-
 function resize() {
     var dpr = window.devicePixelRatio || 1;
     var rect = ctx.canvas.getBoundingClientRect();
@@ -29,13 +16,7 @@ function resize() {
     ctx.filter = blur ? "blur(50px)" : "";
 }
 
-$(window).resize(resize);
-
-// TODO: Remove
-$(window).on('click', () => {
-    blur = !blur;
-    resize();
-})
+window.onresize = resize;
 
 function draw(time) {
     if (lastTime != null) {
@@ -43,7 +24,7 @@ function draw(time) {
 
         let dt = time - lastTime;
         for (let i = 0; i < bubbles.length; i++) {
-            if (bubbles[i].speed > 0 && (bubbles[i].size > window.innerHeight / 2 || Math.random() > 0.996)) {
+            if (bubbles[i].speed > 0 && bubbles[i].lifetime <= 0) {
                 bubbles[i].speed *= -1;
             }
 
@@ -57,12 +38,32 @@ function draw(time) {
     }
 
     lastTime = time;
-    window.requestAnimationFrame(draw);
+    if (!document.hidden) {
+        window.requestAnimationFrame(draw);
+    }
 }
+
+window.onload = () => {
+    let canvas = document.getElementById("background");
+
+    ctx = canvas.getContext("2d");
+    resize();
+
+    for (let i = 0; i < 50; i++) {
+        bubbles[i] = new Bubble();
+    }
+
+    window.requestAnimationFrame(draw);
+};
+
+document.onvisibilitychange = () => {
+    console.log(document.visibilityState);
+    lastTime = null;
+};
 
 class Bubble {
     constructor() {
-        this.speed = 0.05;
+        this.speed = 0.04;
 
         this.x = Math.random() * window.innerWidth;
         this.y = Math.random() * window.innerHeight;
@@ -70,13 +71,16 @@ class Bubble {
         this.size = 0;
 
         let v = Math.random();
-        let hue = v * 100 + 120;
+        let hue = v * 120 + 100;
         let light = (1 - v) * 10 + 10;
         this.color = "hsla(" + hue + ", 30%, " + light + "%, 50%)";
+
+        this.lifetime = (Math.random() ** 5) * 6000 + 400;
     }
 
     update(dt) {
         this.size += this.speed * dt;
+        this.lifetime -= dt;
     }
 
     draw() {
