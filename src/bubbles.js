@@ -1,22 +1,35 @@
-"use strict";
-
 let bubbles = [];
 let ctx;
 let lastTime;
-let blur = true;
 
-function resize() {
-    console.log("test");
+export function resize() {
     var dpr = window.devicePixelRatio || 1;
     var rect = ctx.canvas.getBoundingClientRect();
 
     ctx.canvas.width = rect.width * dpr;
     ctx.canvas.height = rect.height * dpr;
 
-    ctx.filter = blur ? "blur(50px)" : "";
+    ctx.filter = "blur(50px)";
 }
 
-window.onresize = resize;
+export function visibilityChanged() {
+    if (document.visibilityState == "visible") {
+        lastTime = null;
+    }
+};
+
+export function load() {
+    let canvas = document.getElementById("background");
+
+    ctx = canvas.getContext("2d");
+    resize();
+
+    for (let i = 0; i < 60; i++) {
+        bubbles[i] = new Bubble();
+    }
+
+    window.requestAnimationFrame(draw);
+};
 
 function draw(time) {
     if (lastTime != null) {
@@ -43,28 +56,9 @@ function draw(time) {
     }
 }
 
-window.onload = () => {
-    let canvas = document.getElementById("background");
-
-    ctx = canvas.getContext("2d");
-    resize();
-
-    for (let i = 0; i < 50; i++) {
-        bubbles[i] = new Bubble();
-    }
-
-    window.requestAnimationFrame(draw);
-};
-
-document.onvisibilitychange = () => {
-    if (document.visibilityState == "visible") {
-        lastTime = null;
-    }
-};
-
 class Bubble {
     constructor() {
-        this.speed = 0.04;
+        this.speed = 0.03;
 
         this.x = Math.random() * window.innerWidth;
         this.y = Math.random() * window.innerHeight;
@@ -72,11 +66,12 @@ class Bubble {
         this.size = 0;
 
         let v = Math.random();
-        let hue = v * 120 + 100;
-        let light = (1 - v) * 10 + 10;
-        this.color = "hsla(" + hue + ", 30%, " + light + "%, 50%)";
+        let hue = v < 0.5 ? 150 : 230;
+        let sat = v < 0.5 ? 50 : 85;
+        let light = v < 0.5 ? 25 : 40;
+        this.color = "hsla(" + hue + ", "+ sat +"%, " + light + "%, 40%)";
 
-        this.lifetime = (Math.random() ** 5) * 6000 + 400;
+        this.lifetime = (Math.random() ** 5) * 7000 + 500;
     }
 
     update(dt) {
