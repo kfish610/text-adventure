@@ -1,27 +1,52 @@
 "use strict";
 
-import * as bubbles from "./bubbles.js";
+import Bubbles from "./bubbles.js";
 import Game from "./game.js";
 
+/** @type {Game} */
 let game;
+/** @type {Bubbles} */
+let bubbles;
+
+let lastTime;
 
 window.onload = () => {
-    bubbles.load();
+    bubbles = new Bubbles(document.getElementById("background"));
+    game = new Game(document.getElementById("terminal"));
 
-    game = new Game();
-    game.load();
-}
+    window.requestAnimationFrame(update);
+};
 
 window.onresize = () => {
     bubbles.resize();
-
     game.resize();
 };
 
-document.onkeydown = e => {
+document.onkeydown = (e) => {
     game.keydown(e);
-}
+};
 
 document.onvisibilitychange = () => {
-    bubbles.visibilityChanged();
+    if (document.visibilityState == "visible") {
+        lastTime = null;
+    }
+};
+
+function update(time) {
+    // This really shouldn't be needed if browsers are following convention,
+    // but better safe than sorry
+    if (document.hidden) {
+        window.requestAnimationFrame(update);
+        return;
+    }
+
+    if (lastTime != null) {
+        let dt = time - lastTime;
+
+        bubbles.update(dt);
+        game.update(dt);
+    }
+
+    lastTime = time;
+    window.requestAnimationFrame(update);
 }

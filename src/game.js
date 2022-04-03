@@ -1,66 +1,57 @@
 import Terminal from "./terminal.js";
 
 export default class Game {
-    #firstKey = true;
+    /** @type {Terminal} */
+    term;
+    history;
 
-    load() {
-        this.term = new Terminal(document.getElementById("terminal"));
+    #begin = false;
+    #wipeTimer = 0;
+    #wipeTicks = 0;
+    #wipeLines;
+
+    constructor(terminal) {
+        this.term = new Terminal(terminal);
+        this.history = document.getElementById("history");
+        this.#wipeLines = this.term.maxLines;
+
         this.term.element.style.overflow = "hidden";
-
-        this.term.init();
         this.term.writeLine("Press any key to begin...");
     }
 
+    update(dt) {
+        this.term.update(dt);
+
+        if (!this.#begin) return;
+
+        if (this.#wipeLines >= 0) {
+            if (this.#wipeTimer > 50) {
+                this.#wipeTimer = 0;
+                this.#wipeTicks++;
+
+                if (this.#wipeTicks >= 20) {
+                    this.#wipeLines--;
+                }
+
+                this.term.fillRandom(this.#wipeLines);
+            }
+
+            if (this.#wipeLines >= 0) {
+                this.#wipeTimer += dt;
+            } else {
+                this.term.reset();
+                this.history.classList.add("out");
+            }
+        }
+    }
+
     resize() {
-        
+        this.term.resize();
     }
 
     keydown(e) {
-        if(this.#firstKey) {
-            this.#firstKey = false;
-            this.term.setWaiting(false);
-            setTimeout(this.#wipeTerminal.bind(this, Date.now(), this.term.maxLines), 50);
+        if (!this.#begin) {
+            this.#begin = true;
         }
-    }
-
-    #wipeTerminal(startTime, lines) {
-        if(startTime < 0 || Date.now() - startTime >= 1000) {
-            startTime = -1;
-            lines--;
-        }
-
-        if(lines < 0) {
-            this.term.element.style.overflow = null;
-            this.term.clear();
-            this.term.put("> ");
-            this.term.show();
-            this.term.setWaiting(true);
-            return;
-        }
-
-        this.#showRandomText(lines);
-
-        setTimeout(this.#wipeTerminal.bind(this, startTime, lines), 50);
-    }
-
-    #showRandomText(lines) {
-        this.term.clear();
-        for (let i = 0; i < lines; i++) {
-            this.term.put(this.#randomCharacters(this.term.charsPerLine));
-            this.term.put("\n");
-        }
-        this.term.put(this.#randomCharacters(this.term.charsPerLine));
-        this.term.show();
-    }
-
-    #randomCharacters(count) {
-        let values = new Uint8Array(count)
-        window.crypto.getRandomValues(values);
-        const mappedValues = values.map(x => {
-            const adj = x % 36;
-            return adj < 26 ? adj + 65 : adj - 26 + 48;
-        });
-
-        return String.fromCharCode.apply(null, mappedValues);
     }
 }

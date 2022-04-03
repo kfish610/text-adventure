@@ -1,58 +1,41 @@
-let bubbles = [];
-let ctx;
-let lastTime;
+export default class Bubbles {
+    ctx;
+    bubbles = [];
 
-export function resize() {
-    var dpr = window.devicePixelRatio || 1;
-    var rect = ctx.canvas.getBoundingClientRect();
+    constructor(canvas) {
+        this.ctx = canvas.getContext("2d");
+        this.resize();
 
-    ctx.canvas.width = rect.width * dpr;
-    ctx.canvas.height = rect.height * dpr;
-
-    ctx.filter = "blur(50px)";
-}
-
-export function visibilityChanged() {
-    if (document.visibilityState == "visible") {
-        lastTime = null;
-    }
-};
-
-export function load() {
-    let canvas = document.getElementById("background");
-
-    ctx = canvas.getContext("2d");
-    resize();
-
-    for (let i = 0; i < 60; i++) {
-        bubbles[i] = new Bubble();
+        for (let i = 0; i < 60; i++) {
+            this.bubbles[i] = new Bubble();
+        }
     }
 
-    window.requestAnimationFrame(draw);
-};
+    update(dt) {
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
-function draw(time) {
-    if (lastTime != null) {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-        let dt = time - lastTime;
-        for (let i = 0; i < bubbles.length; i++) {
-            if (bubbles[i].speed > 0 && bubbles[i].lifetime <= 0) {
-                bubbles[i].speed *= -1;
+        for (let i = 0; i < this.bubbles.length; i++) {
+            if (this.bubbles[i].speed > 0 && this.bubbles[i].lifetime <= 0) {
+                this.bubbles[i].speed *= -1;
             }
 
-            bubbles[i].update(dt);
-            if (bubbles[i].size <= 0) {
-                bubbles[i] = new Bubble();
+            this.bubbles[i].update(dt);
+            if (this.bubbles[i].size <= 0) {
+                this.bubbles[i] = new Bubble();
             } else {
-                bubbles[i].draw();
+                this.bubbles[i].draw(this.ctx);
             }
         }
     }
 
-    lastTime = time;
-    if (!document.hidden) {
-        window.requestAnimationFrame(draw);
+    resize() {
+        var dpr = window.devicePixelRatio || 1;
+        var rect = this.ctx.canvas.getBoundingClientRect();
+
+        this.ctx.canvas.width = rect.width * dpr;
+        this.ctx.canvas.height = rect.height * dpr;
+
+        this.ctx.filter = "blur(50px)";
     }
 }
 
@@ -69,9 +52,9 @@ class Bubble {
         let hue = v < 0.5 ? 150 : 230;
         let sat = v < 0.5 ? 50 : 85;
         let light = v < 0.5 ? 25 : 40;
-        this.color = "hsla(" + hue + ", "+ sat +"%, " + light + "%, 40%)";
+        this.color = "hsla(" + hue + ", " + sat + "%, " + light + "%, 40%)";
 
-        this.lifetime = (Math.random() ** 5) * 7000 + 500;
+        this.lifetime = Math.random() ** 5 * 7000 + 500;
     }
 
     update(dt) {
@@ -79,10 +62,10 @@ class Bubble {
         this.lifetime -= dt;
     }
 
-    draw() {
+    draw(ctx) {
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
     }
 }
