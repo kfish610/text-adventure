@@ -1,17 +1,17 @@
 export default class Bubbles {
-    ctx;
-    bubbles = [];
+    ctx: CanvasRenderingContext2D;
+    bubbles: Array<Bubble> = [];
 
-    constructor(canvas) {
-        this.ctx = canvas.getContext("2d");
+    constructor(canvas: HTMLCanvasElement) {
+        this.ctx = canvas.getContext("2d")!;
         this.resize();
 
-        for (let i = 0; i < 60; i++) {
-            this.bubbles[i] = new Bubble();
+        for (let i = 0; i < 20; i++) {
+            this.bubbles.push(new Bubble());
         }
     }
 
-    update(dt) {
+    update(dt: number) {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
         for (let i = 0; i < this.bubbles.length; i++) {
@@ -40,8 +40,15 @@ export default class Bubbles {
 }
 
 class Bubble {
+    speed: number;
+    x: number;
+    y: number;
+    size: number;
+    color: string;
+    lifetime: number;
+
     constructor() {
-        this.speed = 0.03;
+        this.speed = 0.04;
 
         this.x = Math.random() * window.innerWidth;
         this.y = Math.random() * window.innerHeight;
@@ -54,15 +61,15 @@ class Bubble {
         let light = v < 0.5 ? 25 : 40;
         this.color = "hsla(" + hue + ", " + sat + "%, " + light + "%, 40%)";
 
-        this.lifetime = Math.random() ** 5 * 7000 + 500;
+        this.lifetime = Math.random() ** 5 * 8000 + 500;
     }
 
-    update(dt) {
+    update(dt: number) {
         this.size += this.speed * dt;
         this.lifetime -= dt;
     }
 
-    draw(ctx) {
+    draw(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);

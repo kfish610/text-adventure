@@ -1,18 +1,32 @@
-"use strict";
+import Bubbles from "./bubbles";
+import Game from "./game";
 
-import Bubbles from "./bubbles.js";
-import Game from "./game.js";
+type Option = {
+    text: string;
+    icon: string;
+    next: string;
+};
 
-/** @type {Game} */
-let game;
-/** @type {Bubbles} */
-let bubbles;
+type Scene = {
+    text: string;
+    options: Option[];
+};
 
-let lastTime;
+let story: Record<string, Scene> = require("./story.cson");
+
+let game: Game;
+
+let bubbles: Bubbles;
+
+let lastTime: number | null = null;
 
 window.onload = () => {
-    bubbles = new Bubbles(document.getElementById("background"));
-    game = new Game(document.getElementById("terminal"));
+    bubbles = new Bubbles(
+        document.getElementById("background") as HTMLCanvasElement
+    );
+    game = new Game(document.getElementById("terminal")!);
+
+    console.log(story);
 
     window.requestAnimationFrame(update);
 };
@@ -32,7 +46,7 @@ document.onvisibilitychange = () => {
     }
 };
 
-function update(time) {
+function update(time: number) {
     // This really shouldn't be needed if browsers are following convention,
     // but better safe than sorry
     if (document.hidden) {

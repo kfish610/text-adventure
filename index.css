@@ -30,16 +30,6 @@ body {
     border: 0.5rem ridge #151515;
 }
 
-#history {
-    flex-basis: 15%;
-    margin-left: calc(-15% - 1rem);
-}
-
-#history.out {
-    transition: 1s;
-    margin-left: 0;
-}
-
 #main {
     flex: 1;
     display: flex;
