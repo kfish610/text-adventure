@@ -35,6 +35,8 @@ export default class Bubbles {
         this.ctx.canvas.width = rect.width * dpr;
         this.ctx.canvas.height = rect.height * dpr;
 
+        this.ctx.scale(dpr, dpr);
+
         this.ctx.filter = "blur(50px)";
     }
 }

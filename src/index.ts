@@ -1,19 +1,6 @@
 import Bubbles from "./bubbles";
 import Game from "./game";
 
-type Option = {
-    text: string;
-    icon: string;
-    next: string;
-};
-
-type Scene = {
-    text: string;
-    options: Option[];
-};
-
-let story: Record<string, Scene> = require("./story.cson");
-
 let game: Game;
 
 let bubbles: Bubbles;
@@ -25,8 +12,6 @@ window.onload = () => {
         document.getElementById("background") as HTMLCanvasElement
     );
     game = new Game(document.getElementById("terminal")!);
-
-    console.log(story);
 
     window.requestAnimationFrame(update);
 };

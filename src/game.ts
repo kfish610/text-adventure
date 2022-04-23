@@ -1,44 +1,20 @@
 import Terminal from "./terminal";
+import StateManager from "./state_manager";
+import { BeginState } from "./states";
 
 export default class Game {
     term: Terminal;
-
-    private begin = false;
-    private wipeTimer = 0;
-    private wipeTicks = 0;
-    private wipeLines = 0;
+    manager: StateManager;
 
     constructor(terminal: HTMLElement) {
         this.term = new Terminal(terminal);
-        this.wipeLines = this.term.maxLines;
-
-        this.term.element.style.overflow = "hidden";
-        this.term.writeLine("Press any key to begin...");
+        this.manager = new StateManager(BeginState);
     }
 
     update(dt: number) {
+        this.manager.update(dt, this.term);
+
         this.term.update(dt);
-
-        if (!this.begin) return;
-
-        if (this.wipeLines >= 0) {
-            if (this.wipeTimer > 50) {
-                this.wipeTimer = 0;
-                this.wipeTicks++;
-
-                if (this.wipeTicks >= 20) {
-                    this.wipeLines--;
-                }
-
-                this.term.fillRandom(this.wipeLines);
-            }
-
-            if (this.wipeLines >= 0) {
-                this.wipeTimer += dt;
-            } else {
-                this.term.reset();
-            }
-        }
     }
 
     resize() {
@@ -46,8 +22,6 @@ export default class Game {
     }
 
     keydown(e: KeyboardEvent) {
-        if (!this.begin) {
-            this.begin = true;
-        }
+        this.manager.keydown(e);
     }
 }
