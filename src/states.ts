@@ -68,8 +68,11 @@ export class PlayingState extends State {
 
         if (this.delay <= 0) {
             let commandPos = this.remainingText.indexOf("[");
-            if (commandPos == 0) {
-                let command = this.remainingText.substring(
+            if (commandPos == -1) {
+                term.write(this.remainingText);
+                this.remainingText = "";
+            } else if (commandPos == 0) {
+                let command = this.remainingText.slice(
                     1,
                     this.remainingText.indexOf("]")
                 );
@@ -77,15 +80,15 @@ export class PlayingState extends State {
 
                 if (args[0] == "delay") {
                     this.delay = parseInt(args[1]);
-                    this.remainingText = this.remainingText.substring(
+                    this.remainingText = this.remainingText.slice(
                         this.remainingText.indexOf("]") + 1
                     );
                 } else if (args[0] == "enter") {
                     term.writeLine("");
                 }
             } else {
-                term.write(this.remainingText.substring(0, commandPos));
-                this.remainingText = this.remainingText.substring(commandPos);
+                term.write(this.remainingText.slice(0, commandPos));
+                this.remainingText = this.remainingText.slice(commandPos);
             }
         } else {
             this.delay -= dt;
