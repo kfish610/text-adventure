@@ -73,9 +73,24 @@ export default class Terminal {
         this.content = "";
     }
 
-    put(text: string) {
+    getPosition() {
+        return this.content.length - (this.cursorVisible ? 0 : 1);
+    }
+
+    put(text: string, pos?: number) {
         this.setCursorEnabled(false);
-        this.content += text;
+        if (
+            pos != undefined &&
+            pos >= 0 &&
+            pos <= this.content.length - text.length
+        ) {
+            this.content =
+                this.content.slice(0, pos) +
+                text +
+                this.content.slice(pos + text.length);
+        } else {
+            this.content += text;
+        }
     }
 
     putLine(text: string) {
@@ -90,8 +105,8 @@ export default class Terminal {
         this.setCursorEnabled(true);
     }
 
-    write(text: string) {
-        this.put(text);
+    write(text: string, pos?: number) {
+        this.put(text, pos);
         this.show();
         this.setCursorEnabled(true);
     }
@@ -100,6 +115,17 @@ export default class Terminal {
         this.putLine(text);
         this.show();
         this.setCursorEnabled(true);
+    }
+
+    randomCharacters(count: number) {
+        let values = new Uint8Array(count);
+        window.crypto.getRandomValues(values);
+        const mappedValues = values.map((x) => {
+            const adj = x % 36;
+            return adj < 26 ? adj + 65 : adj - 26 + 48;
+        });
+
+        return String.fromCharCode.apply(null, mappedValues);
     }
 
     fillRandom(lines: number) {
@@ -132,16 +158,5 @@ export default class Terminal {
             this.cursorVisible = !this.cursorVisible;
             this.show();
         }
-    }
-
-    private randomCharacters(count: number) {
-        let values = new Uint8Array(count);
-        window.crypto.getRandomValues(values);
-        const mappedValues = values.map((x) => {
-            const adj = x % 36;
-            return adj < 26 ? adj + 65 : adj - 26 + 48;
-        });
-
-        return String.fromCharCode.apply(null, mappedValues);
     }
 }

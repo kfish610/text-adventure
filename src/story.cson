@@ -1,3 +1,3 @@
 begin: 
-    text: 'Connecting[delay 100].[delay 100].[delay 100].'
+    text: '[delay 2000]Connecting[delay 1000][normal .][delay 1000][normal .][delay 1000][normal .][newline]'
     options: []
