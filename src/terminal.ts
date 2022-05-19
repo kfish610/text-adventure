@@ -65,7 +65,7 @@ export default class Terminal {
     }
 
     show() {
-        this.element.innerText = this.content;
+        this.element.innerHTML = this.content;
     }
 
     clear() {
@@ -95,7 +95,7 @@ export default class Terminal {
 
     putLine(text: string) {
         this.setCursorEnabled(false);
-        this.content += text + "\n> ";
+        this.content += text + "<br />> ";
     }
 
     reset() {
@@ -132,7 +132,7 @@ export default class Terminal {
         this.clear();
         for (let i = 0; i < lines; i++) {
             this.put(this.randomCharacters(this.charsPerLine));
-            this.put("\n");
+            this.put("<br />");
         }
         this.put(this.randomCharacters(this.charsPerLine));
         this.show();

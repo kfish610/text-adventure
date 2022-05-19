@@ -1,3 +1,20 @@
 begin: 
-    text: '[delay 2000]Connecting[delay 1000][normal .][delay 1000][normal .][delay 1000][normal .][newline]'
-    options: []
+    text: '''
+    [delay 1000]Connecting[delay 1000][normal .][delay 1000][normal .][delay 1000][normal .]
+    <em>Beep</em> [delay 500]<em>Beep</em> [delay 500]<em>Beep</em>
+    You wake up slowly to the sound of your alarm.
+    It drones on and on until you wake up enough to turn it off. 
+    What do you do?
+    '''
+    options: [
+        {
+            icon: 'mobile'
+            text: 'Check phone'
+            next: 'check-phone'
+        }
+        {
+            icon: 'person-to-door'
+            text: 'Get out of bed'
+            next: 'get-up'
+        }
+    ]

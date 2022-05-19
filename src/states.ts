@@ -75,8 +75,22 @@ export class PlayingState extends State<{ text: string }> {
         if (this.remainingText.length == 0) return;
 
         if (this.delay <= 0) {
+            let tagPos = this.remainingText.indexOf("<");
+            let spacePos = this.remainingText.indexOf(" ");
+            let newlinePos = this.remainingText.indexOf("\n");
             let commandPos = this.remainingText.indexOf("[");
-            if (commandPos == 0) {
+            if (tagPos == 0) {
+                let endTagPos = this.remainingText.indexOf(">");
+                term.write(this.remainingText.slice(0, endTagPos + 1));
+                this.remainingText = this.remainingText.slice(endTagPos + 1);
+            } else if (spacePos == 0) {
+                term.write(" ");
+                this.remainingText = this.remainingText.slice(1);
+            } else if (newlinePos == 0) {
+                term.writeLine("");
+                this.delay = 500;
+                this.remainingText = this.remainingText.slice(1);
+            } else if (commandPos == 0) {
                 let command = this.remainingText.slice(
                     1,
                     this.remainingText.indexOf("]")
@@ -88,6 +102,18 @@ export class PlayingState extends State<{ text: string }> {
                 this.remainingText = this.remainingText.slice(
                     this.remainingText.indexOf("]") + 1
                 );
+            } else if (tagPos != -1 
+                    && (spacePos == -1 || tagPos < spacePos)
+                    && (newlinePos == -1 || tagPos < newlinePos)
+                    && (commandPos == -1 || tagPos < commandPos)) {
+                this.writeText(tagPos, term, dt);
+            } else if (spacePos != -1
+                    && (newlinePos == -1 || spacePos < newlinePos)
+                    && (commandPos == -1 || spacePos < commandPos)) {
+                this.writeText(spacePos, term, dt);
+            } else if (newlinePos != -1 
+                    && (commandPos == -1 || newlinePos < commandPos)) {
+                this.writeText(newlinePos, term, dt);
             } else {
                 this.writeText(commandPos, term, dt);
             }
@@ -108,7 +134,7 @@ export class PlayingState extends State<{ text: string }> {
         }
 
         if (this.textDecoded == 0) {
-            if (this.textTimer > 100) {
+            if (this.textTimer > 50) {
                 this.textDecoded = 1;
                 this.textTimer = 0;
             } else {
@@ -130,7 +156,7 @@ export class PlayingState extends State<{ text: string }> {
             return;
         }
 
-        if (this.textTimer > 50) {
+        if (this.textTimer > 25) {
             this.textDecoded++;
             this.textTimer = 0;
         }
@@ -145,8 +171,7 @@ export class PlayingState extends State<{ text: string }> {
             case "normal":
                 term.write(args[1]);
                 break;
-            case "newline":
-                term.writeLine("");
+            case "sep":
                 break;
         }
     }
