@@ -6,6 +6,7 @@ body {
     color: greenyellow;
     height: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
 #background {
@@ -34,12 +35,36 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin: 0 5%;
+    margin: 0 2.5%;
 }
 
 #terminal {
     flex: 1;
     overflow: auto;
-    margin: 2.5vh 0;
+    margin: 1rem 0;
     padding: 0.5rem 1rem;
+}
+
+button.overlay {
+    font: 1.25rem "Fira Mono", "Courier New", monospace;
+    color: greenyellow;
+    padding: 1rem 0;
+    margin: 0 2.5% 1rem 2.5%;
+}
+
+button.overlay:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 0.5rem ridge #202020;
+}
+
+#buttons {
+    transition: max-height 1s;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    position: relative;
+    max-height: 0;
+}
+
+#buttons.out {
+    max-height: 100%;
 }

@@ -1,20 +1,125 @@
 begin: 
     text: '''
-    [delay 1000]Connecting[delay 1000][normal .][delay 1000][normal .][delay 1000][normal .]
-    <em>Beep</em> [delay 500]<em>Beep</em> [delay 500]<em>Beep</em>
-    You wake up slowly to the sound of your alarm.
-    It drones on and on until you wake up enough to turn it off. 
-    What do you do?
-    '''
+        [delay 500]Connecting[delay 500][normal .][delay 500][normal .][delay 500][normal .]
+        <em>Beep</em> [delay 500]<em>Beep</em> [delay 500]<em>Beep</em>
+        You wake up slowly to the sound of your alarm.
+        It drones on and on until you wake up enough to turn it off. 
+        What do you do?
+        '''
     options: [
         {
             icon: 'mobile'
             text: 'Check phone'
-            next: 'check-phone'
+            next: 'checkPhone'
         }
         {
-            icon: 'person-to-door'
+            icon: 'arrow-up-from-bracket'
             text: 'Get out of bed'
-            next: 'get-up'
+            next: 'getUp'
         }
     ]
+checkPhone:
+    text: '''
+        You scroll somewhat absentmindedly through your newsfeed as you wake up. 
+        One story catches your eye. An image of a flooded town off of the Missisippi River.
+        Pieces of driftwood and debris scattered in the water.
+        Cars drowned in the deep water.
+        Nature is a cruel mistress, you think. 
+        But then again, we've always had to deal with this stuff, right?
+        Well, thats enough of the news for today. That stuff is always just depressing.
+        '''
+    loop: 'begin'
+getUp:
+    text: '''
+        You get up and get ready for the day. 
+        When you come back out of the bathroom, you notice two things:
+        1. It's freezing in here
+        2. Your room is a mess
+        '''
+    options: [
+        {
+            icon: 'fan'
+            text: 'Turn off the A/C'
+            next: 'turnOff'
+        }
+        {
+            icon: 'folder'
+            text: 'Check out the mess'
+            next: 'mess'
+            return: 'continue'
+        }
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Leave'
+            next: 'leave'
+        }
+    ]
+turnOff:
+    text: '''
+        As you go over to turn off the air conditioning, you take a look out the window.
+        Just as you expected, its cloudy and rainy. 
+        The A/C must have been making the temperature even colder than it already was outside.
+        You've had it turned all the way up for the past few days due to the heatwave, but clearly that's over now.
+        You grab your Augmented Reality glasses from your desk and put them on.
+        At least all you have to do is open the A/C app and adjust the virtual knob.
+        This stuff was much more annoying when you had to find the physical controls.
+        '''
+    loop: 'getUp'
+mess:
+    text: '''
+        You spend so much time at work nowadays that your room is pretty messy. 
+        In theory, all of your materials would be contained in the folder on your desk,
+        but you spend so much time reorganizing and adjusting that it all ends up strewn about.
+        You pick up what few papers remain the folder and flick through them. 
+        They're the three studies you've based your presentation on.
+        You stare at them for a little, pensively. You'd always wanted to be the one doing the research. 
+        That's why you took this job; presenting research seemed like a good way to get some connections,
+        and you needed the money. But at some point you lost track of that goal, 
+        and even though you can probably afford to go back to school now, 
+        being a researcher feels like someone else's dream. 
+        The kind of thing a kid tells themself before they've been exposed to the real world. 
+        This job is fine. It pays well. <b>It's fine</b>.
+        You have three studies in the folder. Do you want to review any of them before the big hearing later?
+        '''
+    options: [
+        {
+            icon: 'industry'
+            text: 'CCS Study'
+            next: 'ccs'
+        }
+        {
+            icon: 'fire-flame-simple'
+            text: 'Efficiency Study'
+            next: 'efficiency'
+        }
+        {
+            icon: 'arrows-rotate'
+            text: 'Lifecycle Analysis'
+            next: 'lca'
+        }
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Continue'
+            next: 'continue'
+        }
+    ]
+ccs:
+    text: '''
+        CCS Study
+        '''
+    loop: 'mess'
+efficiency:
+    text: '''
+        Efficiency Study
+        '''
+    loop: 'mess'
+lca:
+    text: '''
+        Lifecycle Analysis
+        '''
+    loop: 'mess'
+continue:
+    text: '''
+        You turn your attention to the rest of the room.
+        '''
+    loop: 'getUp'

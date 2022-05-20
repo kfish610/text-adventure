@@ -1,35 +1,26 @@
 import State from "./state";
 import Terminal from "./terminal";
+import Buttons from "./buttons";
+import { Story } from './story';
 
-type Option = {
-    text: string;
-    icon: string;
-    next: string;
-};
+let story: Story = require("./story.cson");
 
-type Scene = {
-    text: string;
-    options: Option[];
-};
-
-let story: Record<string, Scene> = require("./story.cson");
-
-export class BeginState extends State<{}> {
-    override init(term: Terminal, options: {}) {
+export class BeginState extends State {
+    override init(term: Terminal) {
         term.writeLine("Press any key to begin...");
     }
 
     override keydown(e: KeyboardEvent) {
-        this.manager.setState(WipeState, {});
+        this.manager.setState(WipeState);
     }
 }
 
-export class WipeState extends State<{}> {
+export class WipeState extends State {
     private wipeTimer = 0;
     private wipeTicks = 0;
     private wipeLines: number;
 
-    override init(term: Terminal, options: {}) {
+    override init(term: Terminal) {
         term.element.style.overflow = "hidden";
         this.wipeLines = term.maxLines;
     }
@@ -51,13 +42,14 @@ export class WipeState extends State<{}> {
             this.wipeTimer += dt;
         } else {
             term.reset();
-            this.manager.setState(PlayingState, { text: story["begin"].text });
+            term.element.style.overflow = "";
+            this.manager.setState(PlayingState);
         }
     }
 }
 
-export class PlayingState extends State<{ text: string }> {
-    curr = "begin";
+export class PlayingState extends State {
+    scene = "begin";
 
     remainingText = "";
 
@@ -67,59 +59,50 @@ export class PlayingState extends State<{ text: string }> {
     textPosition = -1;
     textTimer = -1;
 
-    override init(term: Terminal, options: { text: string }) {
-        this.remainingText = options.text;
+    buttons = new Buttons(document.getElementById("buttons")!);
+
+    override init(term: Terminal) {
+        this.remainingText = story[this.scene].text;
     }
 
     override update(dt: number, term: Terminal) {
-        if (this.remainingText.length == 0) return;
+        if (this.buttons.enabled) return;
+
+        if (this.buttons.selected != null) {
+            term.writeLine(this.buttons.text!);
+            this.scene = this.buttons.selected;
+            this.buttons.selected = null;
+            this.remainingText = story[this.scene].text;
+        }
+
+        if (this.remainingText.length == 0) {
+            term.write("<br/>");
+            term.writeLine("");
+            this.buttons.enable(this.scene);
+            setTimeout(() => term.element.scroll(0, term.element.scrollHeight), 500);
+            return;
+        }
 
         if (this.delay <= 0) {
-            let tagPos = this.remainingText.indexOf("<");
-            let spacePos = this.remainingText.indexOf(" ");
-            let newlinePos = this.remainingText.indexOf("\n");
-            let commandPos = this.remainingText.indexOf("[");
-            if (tagPos == 0) {
-                let endTagPos = this.remainingText.indexOf(">");
-                term.write(this.remainingText.slice(0, endTagPos + 1));
-                this.remainingText = this.remainingText.slice(endTagPos + 1);
-            } else if (spacePos == 0) {
-                term.write(" ");
-                this.remainingText = this.remainingText.slice(1);
-            } else if (newlinePos == 0) {
-                term.writeLine("");
-                this.delay = 500;
-                this.remainingText = this.remainingText.slice(1);
-            } else if (commandPos == 0) {
-                let command = this.remainingText.slice(
-                    1,
-                    this.remainingText.indexOf("]")
-                );
-                let args = command.split(" ");
-
-                this.handleCommand(args, term);
-
-                this.remainingText = this.remainingText.slice(
-                    this.remainingText.indexOf("]") + 1
-                );
-            } else if (tagPos != -1 
-                    && (spacePos == -1 || tagPos < spacePos)
-                    && (newlinePos == -1 || tagPos < newlinePos)
-                    && (commandPos == -1 || tagPos < commandPos)) {
-                this.writeText(tagPos, term, dt);
-            } else if (spacePos != -1
-                    && (newlinePos == -1 || spacePos < newlinePos)
-                    && (commandPos == -1 || spacePos < commandPos)) {
-                this.writeText(spacePos, term, dt);
-            } else if (newlinePos != -1 
-                    && (commandPos == -1 || newlinePos < commandPos)) {
-                this.writeText(newlinePos, term, dt);
+            let [pos, index] = this.indexOfMany(this.remainingText, "<[ \n");
+            if(pos == 0) {
+                this.handleSpecial(index, term);
             } else {
-                this.writeText(commandPos, term, dt);
+                this.writeText(pos, term, dt);
             }
         } else {
             this.delay -= dt;
         }
+    }
+
+    private indexOfMany(str: string, chars: string): [number, number] {
+        for (let i = 0; i < str.length; i++) {
+            let c = chars.indexOf(str[i]);
+            if (c != -1) {
+                return [i, c];
+            }
+        }
+        return [-1, -1];
     }
 
     private writeText(len: number, term: Terminal, dt: number) {
@@ -134,7 +117,7 @@ export class PlayingState extends State<{ text: string }> {
         }
 
         if (this.textDecoded == 0) {
-            if (this.textTimer > 50) {
+            if (this.textTimer > 20) {
                 this.textDecoded = 1;
                 this.textTimer = 0;
             } else {
@@ -156,23 +139,47 @@ export class PlayingState extends State<{ text: string }> {
             return;
         }
 
-        if (this.textTimer > 25) {
+        if (this.textTimer > 10) {
             this.textDecoded++;
             this.textTimer = 0;
         }
         this.textTimer += dt;
     }
 
-    private handleCommand(args: Array<string>, term: Terminal) {
-        switch (args[0]) {
-            case "delay":
-                this.delay = parseInt(args[1]);
+    private handleSpecial(index: number, term: Terminal) {
+        switch (index) {
+            case 0: // <
+                let endTagPos = this.remainingText.indexOf(">");
+                term.write(this.remainingText.slice(0, endTagPos + 1));
+                this.remainingText = this.remainingText.slice(endTagPos + 1);
                 break;
-            case "normal":
-                term.write(args[1]);
+            case 1: // [
+                let endCommandPos = this.remainingText.indexOf("]");
+                let command = this.remainingText.slice(1, endCommandPos);
+                let spacePos = command.indexOf(" ");
+                switch (command.slice(0, spacePos)) {
+                    case "delay":
+                        this.delay = parseInt(command.slice(spacePos + 1));
+                        break;
+                    case "normal":
+                        term.write(command.slice(spacePos + 1));
+                        break;
+                    case "sep":
+                        break;
+                }
+                this.remainingText = this.remainingText.slice(endCommandPos + 1);
                 break;
-            case "sep":
+            case 2: // <space>
+                term.write(" ");
+                this.remainingText = this.remainingText.slice(1);
                 break;
+            case 3: // \n
+                term.writeLine("");
+                this.delay = 500;
+                this.remainingText = this.remainingText.slice(1);
+                break;
+            default:
+                throw new RangeError("Invalid char index " + index);
         }
     }
 }

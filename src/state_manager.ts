@@ -2,25 +2,22 @@ import State from "./state";
 import Terminal from "./terminal";
 
 export default class StateManager {
-    state: State<object>;
-    initOptions: object | null = {};
+    state: State;
+    needsInit = true;
 
-    constructor(s: new (m: StateManager) => State<any>) {
+    constructor(s: new (m: StateManager) => State) {
         this.state = new s(this);
     }
 
-    setState<T extends object>(
-        s: new (m: StateManager) => State<T>,
-        options: T
-    ) {
+    setState(s: new (m: StateManager) => State) {
         this.state = new s(this);
-        this.initOptions = options;
+        this.needsInit = true;
     }
 
     update(dt: number, term: Terminal) {
-        if (this.initOptions != null) {
-            this.state.init(term, this.initOptions);
-            this.initOptions = null;
+        if (this.needsInit) {
+            this.state.init(term);
+            this.needsInit = false;
         }
 
         this.state.update(dt, term);
