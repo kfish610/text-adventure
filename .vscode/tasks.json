@@ -11,6 +11,14 @@
             },
             "type": "shell",
             "command": "npm run build"
+        },
+        {
+            "label": "watch",
+            "group": {
+                "kind": "build"
+            },
+            "type": "shell",
+            "command": "npm run watch"
         }
     ]
 }
