@@ -114,7 +114,6 @@ export default class Terminal {
     writeLine(text: string) {
         this.putLine(text);
         this.show();
-        this.element.scroll(0, this.element.scrollHeight);
         this.setCursorEnabled(true);
     }
 

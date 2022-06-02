@@ -43,6 +43,35 @@ body {
     overflow: auto;
     margin: 1rem 0;
     padding: 0.5rem 1rem;
+    scroll-snap-type: y proximity;
+    scroll-padding: 0.5rem 1rem;
+}
+
+#terminal::after {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    scroll-snap-align: end;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #999;
 }
 
 button.overlay {

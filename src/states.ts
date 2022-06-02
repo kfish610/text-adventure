@@ -79,7 +79,6 @@ export class PlayingState extends State {
             term.write("<br/>");
             term.writeLine("");
             this.buttons.enable(this.scene);
-            setTimeout(() => term.element.scroll(0, term.element.scrollHeight), 500);
             return;
         }
 
@@ -117,7 +116,7 @@ export class PlayingState extends State {
         }
 
         if (this.textDecoded == 0) {
-            if (this.textTimer > 20) {
+            if (this.textTimer > 10) {
                 this.textDecoded = 1;
                 this.textTimer = 0;
             } else {
@@ -139,11 +138,7 @@ export class PlayingState extends State {
             return;
         }
 
-        if (this.textTimer > 10) {
-            this.textDecoded++;
-            this.textTimer = 0;
-        }
-        this.textTimer += dt;
+        this.textDecoded++;
     }
 
     private handleSpecial(index: number, term: Terminal) {
