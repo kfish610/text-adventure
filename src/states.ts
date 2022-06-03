@@ -2,6 +2,7 @@ import State from "./state";
 import Terminal from "./terminal";
 import Buttons from "./buttons";
 import { Story } from './story';
+import AudioManager from "./audio_manager";
 
 let story: Story = require("./story.cson");
 
@@ -22,6 +23,10 @@ export class WipeState extends State {
 
     override init(term: Terminal) {
         term.element.style.overflow = "hidden";
+        term.element.style.scrollSnapType = "unset";
+        term.element.style.paddingLeft = "1.6rem";
+        term.element.style.paddingRight = "1.6rem";
+        term.element.style.textIndent = "unset";
         this.wipeLines = term.maxLines;
     }
 
@@ -43,6 +48,11 @@ export class WipeState extends State {
         } else {
             term.reset();
             term.element.style.overflow = "";
+            term.element.style.scrollSnapType = "";
+            term.element.style.lineHeight = "";
+            term.element.style.paddingLeft = "";
+            term.element.style.paddingRight = "";
+            term.element.style.textIndent = "";
             this.manager.setState(PlayingState);
         }
     }
@@ -57,11 +67,16 @@ export class PlayingState extends State {
 
     textDecoded = -1;
     textPosition = -1;
-    textTimer = -1;
 
     buttons = new Buttons(document.getElementById("buttons")!);
 
+    audio = new AudioManager();
+    background = new AudioManager();
+
+    currSound = "click.wav";
+
     override init(term: Terminal) {
+        this.audio.loop(false);
         this.remainingText = story[this.scene].text;
     }
 
@@ -76,8 +91,8 @@ export class PlayingState extends State {
         }
 
         if (this.remainingText.length == 0) {
-            term.write("<br/>");
-            term.writeLine("");
+            this.audio.stop();
+            term.break();
             this.buttons.enable(this.scene);
             return;
         }
@@ -110,20 +125,9 @@ export class PlayingState extends State {
         }
 
         if (this.textDecoded == -1) {
+            this.audio.play(this.currSound);
             this.textDecoded = 0;
             this.textPosition = term.getPosition();
-            this.textTimer = 0;
-        }
-
-        if (this.textDecoded == 0) {
-            if (this.textTimer > 10) {
-                this.textDecoded = 1;
-                this.textTimer = 0;
-            } else {
-                this.textTimer += dt;
-                term.write(term.randomCharacters(len), this.textPosition);
-                return;
-            }
         }
 
         let text =
@@ -152,14 +156,25 @@ export class PlayingState extends State {
                 let endCommandPos = this.remainingText.indexOf("]");
                 let command = this.remainingText.slice(1, endCommandPos);
                 let spacePos = command.indexOf(" ");
-                switch (command.slice(0, spacePos)) {
+                switch (spacePos == -1 ? command : command.slice(0, spacePos)) {
                     case "delay":
                         this.delay = parseInt(command.slice(spacePos + 1));
                         break;
                     case "normal":
+                        this.audio.play(this.currSound);
                         term.write(command.slice(spacePos + 1));
                         break;
                     case "sep":
+                        break;
+                    case "sound":
+                        this.currSound = command.slice(spacePos + 1);
+                        break;
+                    case "background":
+                        if (spacePos == -1) {
+                            this.background.stop();
+                        } else {
+                            this.background.play(command.slice(spacePos + 1), 0.1);
+                        }
                         break;
                 }
                 this.remainingText = this.remainingText.slice(endCommandPos + 1);

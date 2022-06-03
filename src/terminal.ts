@@ -13,7 +13,7 @@ export default class Terminal {
     maxLines: number;
     charsPerLine: number;
 
-    content = "> ";
+    content = "<div>> ";
 
     private cursorVisible = true;
     private cursorEnabled = true;
@@ -95,7 +95,7 @@ export default class Terminal {
 
     putLine(text: string) {
         this.setCursorEnabled(false);
-        this.content += text + "<br />> ";
+        this.content += text + "</div><div>> ";
     }
 
     reset() {
@@ -113,6 +113,13 @@ export default class Terminal {
 
     writeLine(text: string) {
         this.putLine(text);
+        this.show();
+        this.setCursorEnabled(true);
+    }
+
+    break() {
+        this.setCursorEnabled(false);
+        this.content += "</div><br/><div>> ";
         this.show();
         this.setCursorEnabled(true);
     }

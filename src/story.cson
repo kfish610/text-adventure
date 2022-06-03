@@ -1,16 +1,16 @@
-begin: 
+begin:
     text: '''
-        [delay 500]Connecting[delay 500][normal .][delay 500][normal .][delay 500][normal .]
-        <em>Beep</em> [delay 500]<em>Beep</em> [delay 500]<em>Beep</em>
-        You wake up slowly to the sound of your alarm.
-        It drones on and on until you wake up enough to turn it off. 
+        [delay 500]Connecting[delay 750][normal .][delay 750][normal .][delay 750][normal .][delay 750]
+        [sound alarm.wav]<em>Beep</em> [delay 1000]<em>Beep</em> [delay 1000]<em>Beep</em>[delay 1000]
+        [sound click.wav]You wake up slowly to the sound of your alarm.
+        It drones on and on until you wake up enough to turn it off.
         What do you do?
         '''
     options: [
         {
-            icon: 'mobile'
-            text: 'Check phone'
-            next: 'checkPhone'
+            icon: 'newspaper'
+            text: 'Check the news'
+            next: 'checkNews'
         }
         {
             icon: 'arrow-up-from-bracket'
@@ -18,20 +18,21 @@ begin:
             next: 'getUp'
         }
     ]
-checkPhone:
+checkNews:
     text: '''
-        You scroll somewhat absentmindedly through your newsfeed as you wake up. 
-        One story catches your eye. An image of a flooded town off of the Missisippi River.
-        Pieces of driftwood and debris scattered in the water.
-        Cars drowned in the deep water.
-        Nature is a cruel mistress, you think. 
-        But then again, we've always had to deal with this stuff, right?
+        You grab your Augmented Reality glasses from your nightstand and put them on.
+        As you scroll somewhat absentmindedly through the news, one story catches your eye.
+        An image of a flooded town off of the Missisippi River.
+        Murky brown water everywhere, past waist height.
+        Cars, buildings, and trees barely above the surface.
+        Nature is a cruel mistress, you think.
+        But then again, we've always had to deal with natural disasters, right?
         Well, thats enough of the news for today. That stuff is always just depressing.
         '''
     loop: 'begin'
 getUp:
     text: '''
-        You get up and get ready for the day. 
+        You get up and get ready for the day.
         When you come back out of the bathroom, you notice two things:
         1. It's freezing in here
         2. Your room is a mess
@@ -56,30 +57,18 @@ getUp:
     ]
 turnOff:
     text: '''
-        As you go over to turn off the air conditioning, you take a look out the window.
-        Just as you expected, its cloudy and rainy. 
-        The A/C must have been making the temperature even colder than it already was outside.
-        You've had it turned all the way up for the past few days due to the heatwave, but clearly that's over now.
-        You grab your Augmented Reality glasses from your desk and put them on.
-        At least all you have to do is open the A/C app and adjust the virtual knob.
-        This stuff was much more annoying when you had to find the physical controls.
+        As you go over to turn off the air conditioning, you take a look out the window. Just as you expected, its cloudy and rainy. The A/C must have been making the temperature even colder than it already was outside.
+        You've had it turned all the way up for the past few days due to the heatwave. You'd been worried that it wasn't going to end: you had never seen a heatwave go for that long or that hot in your life. Clearly it's over now, though, if the temperature is anything to go by.
+        You adjust the A/C's settings in its app on your AR glasses. On to more important things.
         '''
     loop: 'getUp'
 mess:
     text: '''
-        You spend so much time at work nowadays that your room is pretty messy. 
-        In theory, all of your materials would be contained in the folder on your desk,
-        but you spend so much time reorganizing and adjusting that it all ends up strewn about.
-        You pick up what few papers remain the folder and flick through them. 
-        They're the three studies you've based your presentation on.
-        You stare at them for a little, pensively. You'd always wanted to be the one doing the research. 
-        That's why you took this job; presenting research seemed like a good way to get some connections,
-        and you needed the money. But at some point you lost track of that goal, 
-        and even though you can probably afford to go back to school now, 
-        being a researcher feels like someone else's dream. 
-        The kind of thing a kid tells themself before they've been exposed to the real world. 
+        You spend so much time at work nowadays that your room is pretty messy. In theory, all of your materials would be contained in the folder on your desk, but you spend so much time reorganizing and adjusting that it all ends up strewn about. You'd probably be better off using virtual documents, but something about feeling the papers in your hand still appeals to you more than just seeing them.
+        You pick up what few papers remain the folder and flick through them. They're the three studies you've based your presentation on. You stare at them for a little, pensively. You'd always wanted to be the one doing the research. That's why you took this job; presenting research seemed like a good way to get some connections, not to mention you needed the money. But at some point you lost track of that goal, and even though you can probably afford to go back to school now, being a researcher feels like someone else's dream. The kind of thing a kid tells themself before they've been exposed to the real world.
         This job is fine. It pays well. <b>It's fine</b>.
-        You have three studies in the folder. Do you want to review any of them before the big hearing later?
+        Anyway, you have three studies in the folder.
+        Do you want to review any of them before the big hearing later?
         '''
     options: [
         {

@@ -36,6 +36,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0 2.5%;
+    align-items: center;
 }
 
 #terminal {
@@ -43,8 +44,18 @@ body {
     overflow: auto;
     margin: 1rem 0;
     padding: 0.5rem 1rem;
+    padding-left: 2.2rem;
+    text-indent: -1.2rem;
+    text-align: justify;
     scroll-snap-type: y proximity;
     scroll-padding: 0.5rem 1rem;
+    width: 100%;
+    max-width: min(60rem, 95%);
+    line-height: 1.5rem;
+}
+
+#terminal i.fa-solid {
+    margin-left: 1.2rem;
 }
 
 #terminal::after {
@@ -92,6 +103,8 @@ button.overlay:hover {
     grid-template-columns: repeat(12, 1fr);
     position: relative;
     max-height: 0;
+    width: 100%;
+    /* max-width: 60rem; */
 }
 
 #buttons.out {

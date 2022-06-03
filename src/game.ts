@@ -7,6 +7,7 @@ export default class Game {
     manager: StateManager;
 
     constructor(terminal: HTMLElement) {
+        terminal.style.lineHeight = "1.2rem";
         this.term = new Terminal(terminal);
         this.manager = new StateManager(BeginState);
     }
