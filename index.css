@@ -66,6 +66,83 @@ body {
     scroll-snap-align: end;
 }
 
+#image-container {
+    transform: scale(0);
+    transition: transform 0.5s;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    overflow: hidden;
+}
+
+#image-container.show {
+    transform: scale(1);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+#image-container img {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 80%;
+    max-width: 100%;
+    border: 3px solid #fff;
+}
+
+#image-close {
+    display: none;
+}
+
+.show #image-close {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    right: 10px;
+    transition: background 0.2s;
+}
+
+#image-close:hover {
+    background: #aaa;
+}
+
+
+#image-close::before {
+    content: "";
+    display: block;
+    height: 30px;
+    width: 1px;
+    background: #000;
+    position: absolute;
+    left: 25px;
+    top: 10px;
+    transform: rotate(45deg);
+}
+
+#image-close::after {
+    content: "";
+    display: block;
+    height: 30px;
+    width: 1px;
+    background: #000;
+    position: absolute;
+    left: 25px;
+    top: 10px;
+    transform: rotate(-45deg);
+}
+
 ::-webkit-scrollbar {
     width: 12px;
     height: 12px;

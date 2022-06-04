@@ -75,12 +75,16 @@ export class PlayingState extends State {
 
     currSound = "click.wav";
 
+    lock = false;
+
     override init(term: Terminal) {
         this.audio.loop(false);
         this.remainingText = story[this.scene].text;
     }
 
     override update(dt: number, term: Terminal) {
+        if (this.lock) return;
+
         if (this.buttons.enabled) return;
 
         if (this.buttons.selected != null) {
@@ -176,6 +180,14 @@ export class PlayingState extends State {
                             this.background.play(command.slice(spacePos + 1), 0.1);
                         }
                         break;
+                    case "image":
+                        (document.getElementById('image') as HTMLImageElement).src = command.slice(spacePos + 1);
+                        document.getElementById('image-container')!.className = "show";
+                        this.lock = true;
+                        document.getElementById('image-close')!.onclick = () => {
+                            this.lock = false;
+                            document.getElementById('image-container')!.className = "";
+                        };
                 }
                 this.remainingText = this.remainingText.slice(endCommandPos + 1);
                 break;

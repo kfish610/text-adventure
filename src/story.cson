@@ -24,7 +24,7 @@ checkNews:
         As you scroll somewhat absentmindedly through the news, one story catches your eye.
         An image of a flooded town off of the Missisippi River.
         Murky brown water everywhere, past waist height.
-        Cars, buildings, and trees barely above the surface.
+        Cars, buildings, and trees barely above the surface.[delay 1000][image https://images.foxtv.com/static.fox7austin.com/www.fox7austin.com/content/uploads/2020/02/932/524/Flooding-in-MIssissippi-.jpg?ve=1&tl=1]
         Nature is a cruel mistress, you think.
         But then again, we've always had to deal with natural disasters, right?
         Well, thats enough of the news for today. That stuff is always just depressing.
