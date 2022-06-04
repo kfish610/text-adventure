@@ -2,7 +2,7 @@ export default class AudioManager {
     element = new Audio();
     
     play(name: String, volume: number = 1) {
-        this.element.src = `../assets/${name}`;
+        this.element.src = `https://raw.githubusercontent.com/kfish610/text-adventure/main/assets/${name}`;
         this.element.volume = volume;
         this.element.currentTime = 0;
         this.element.play();

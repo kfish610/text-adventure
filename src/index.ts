@@ -39,8 +39,6 @@ function update(time: number) {
         return;
     }
 
-    console.log({time, lastTime, delta: time - lastTime!});
-
     if (lastTime == null) {
         lastTime = -1;
         window.requestAnimationFrame(update);
