@@ -8,6 +8,7 @@ export default class Buttons {
     text: string | null = null;
     enabled = false;
     buttons: HTMLButtonElement[] = [];
+    firstExit = true;
 
     constructor(elem: HTMLElement) {
         this.elem = elem;
@@ -40,6 +41,14 @@ export default class Buttons {
                 button.style.gridColumn = (i*step + 1).toString() + " / " + ((i+1)*step + 1).toString();
             }
             button.onclick = () => {
+                if (this.firstExit && option.icon == "arrow-up-from-bracket") {
+                    this.firstExit = false;
+                    document.onvisibilitychange!(new Event("visibilitychange"));
+                    if (!confirm("Options with this icon (the exiting arrow) leave a scene permanently. \
+This means that if there's any other options you haven't tried yet, \
+after clicking this option you won't be able to read them without restarting the game. \
+Are you sure you want to continue?")) return;
+                }
                 this.selected = option.next;
                 this.text = "<i class=\"fa-solid fa-"+ option.icon +"\"></i> " + option.text;
                 this.elem.className = "";

@@ -39,7 +39,13 @@ function update(time: number) {
         return;
     }
 
-    if (lastTime != null) {
+    console.log({time, lastTime, delta: time - lastTime!});
+
+    if (lastTime == null) {
+        lastTime = -1;
+        window.requestAnimationFrame(update);
+        return;
+    } else if (lastTime != -1) {
         let dt = time - lastTime;
 
         bubbles.update(dt);
