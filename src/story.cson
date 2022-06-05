@@ -119,3 +119,56 @@ continue:
         You turn your attention to the rest of the room.
         '''
     loop: 'getUp'
+leave:
+    text: '''
+        You're a bit early, but you decide you might as well head to the virtual conference center already. It's a bit of a pain having to go somewhere just to have a better video capture, but you want to look your best. At least its better than having to fly to D.C. to attend the hearing: you know some people at your company who have been lobbying a whole lot longer than you, and they won't stop talking about how much of a pain the business trips used to be.
+        Of course, you don't have a car; gas is more expensive than ever, and driving is becoming increasingly unfashionable nowadays. You could take the bus, but you'd like some privacy while you prepare yourself, so you call a taxi instead. Still, you're faced with a choice: normal car, or flying car?
+        '''
+    options: [
+        {
+            icon: 'car'
+            text: 'Normal Car'
+            next: 'normalCar'
+        }
+        {
+            icon: 'plane'
+            text: 'Flying Car'
+            next: 'flyingCar'
+        }
+    ]
+normalCar:
+    text: '''
+        Despite the novelty of a flying car, a standard car is probably the more reasonable option. It's certainly the most economical option, though the difference between them has been getting surprisingly small, all considered. The car arrives-the decrease of human drivers has made traffic almost a thing of the past at this point-and you get in.
+        [background traffic.mp3]As the car drives off, you look out the window. You see a lot of business, but weirdly, most of them seem empty. Then you realize why. On nearly every building, there's an AR flyer attached to it, with something along the lines of "now hiring". You'd seen a piece in the news recently about how low-wage workers were getting hit hard by heat stress in the recent string of heatwaves. The air conditioners weren't up to the task of a nearly week long heatwave. But you had assumed it was just a couple of people that were effected. This doesn't really seem like just a couple of people, though. 
+        But you're sure this is just a temporary thing. It's a once in a lifetime heatwave, after all. Then again, you'd seen on the weather forecast that temperatures were supposed to go back up the rest of this week, and that today is just an outlier. But... they're probably just missing something. You're sure things will go back to normal soon. Probably.
+        You're shaken out of your thoughts by the car slowing down and stopping. You're here. 
+        Time to go inside and get ready for the hearing.
+        '''
+    options: [
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Enter'
+            next: 'enter'
+        }
+    ]
+flyingCar:
+    text: '''
+        You decide on the flying car. You can spend a little extra just for today; it is an important day after all. Plus, it'll get you there faster. And the views are much nicer. You wait a minute, and then hear the whirring of the rotors on the car. To be honest you had always imagined flying cars as floating, or maybe with wings like an airplane. But you suppose technology is rarely exactly what we expect it to be. You get in the car, and it takes off.
+        [background flying.mp3]You look out the window as the ground drifts further from you. You're not sure you'll ever get used to that. Still, it's a nice view. Unfortunately, your view is occasionally blocked by an advertisement. It's not exactly surprising that they're all over the sky; we put billboards everywhere on highways. But it would have been nice to leave this sight unblemished. At least they're not physically in the air, only visible in your AR glasses. In fact, usually you'd just take them off, but you have to be watching for messages from your company, just in case. So you're going to have to deal with the occasional ad drifting into view.
+        One in particular catches your eye. At first, it just looked like a cloud of smoke, but then you see it reform in the letters "DECARBONIZE". Well, it's an impressive rendering, you'll give them that. The smoke then continues to reform into different words and sentences. 
+        "Do you really want this in your air?"[delay 1000]
+        "We're at a tipping point"[delay 1000]
+        "There is no Earth 2"[delay 1000]
+        "There's still time to fix this"[delay 1000]
+        "Zero carbon by 2100"[delay 1000]
+        It then links to a website, which you quickly wave away. You scoff. Zero carbon? There's no way we could do that, right? And even if we could, carbon dioxide isn't <em>that</em> bad. Right? The lifecycle analysis in your folder nags at you... but you push the thought away. Focus. Your supervisor told you not to worry about the environmental impacts so much. So it's probably fine.
+        You're shaken out of your thoughts by the car landing. You're here. 
+        Time to go inside and get ready for the hearing.
+        '''
+    options: [
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Enter'
+            next: 'enter'
+        }
+    ]

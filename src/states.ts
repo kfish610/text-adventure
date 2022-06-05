@@ -92,6 +92,7 @@ export class PlayingState extends State {
         if (this.buttons.enabled) return;
 
         if (this.buttons.selected != null) {
+            this.background.stop();
             term.writeLine(this.buttons.text!);
             this.scene = this.buttons.selected;
             this.buttons.selected = null;
