@@ -80,6 +80,10 @@ export class PlayingState extends State {
     override init(term: Terminal) {
         this.audio.loop(false);
         this.remainingText = story[this.scene].text;
+        document.getElementById('image-close')!.onclick = (e) => {
+            this.lock = false;
+            document.getElementById('image-container')!.className = "";
+        };
     }
 
     override update(dt: number, term: Terminal) {
@@ -181,12 +185,11 @@ export class PlayingState extends State {
                         }
                         break;
                     case "image":
-                        (document.getElementById('image') as HTMLImageElement).src = command.slice(spacePos + 1);
-                        document.getElementById('image-container')!.className = "show";
+                        term.write(`<a onclick='imgClick()'>Click to view image</a>`);
                         this.lock = true;
-                        document.getElementById('image-close')!.onclick = () => {
-                            this.lock = false;
-                            document.getElementById('image-container')!.className = "";
+                        window.imgClick = () => {
+                            (document.getElementById('image') as HTMLImageElement).src = command.slice(spacePos + 1);
+                            document.getElementById('image-container')!.className = "show";
                         };
                 }
                 this.remainingText = this.remainingText.slice(endCommandPos + 1);
@@ -204,4 +207,8 @@ export class PlayingState extends State {
                 throw new RangeError("Invalid char index " + index);
         }
     }
+}
+
+declare global {
+    interface Window { imgClick: () => void; }
 }

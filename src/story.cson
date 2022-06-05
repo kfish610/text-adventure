@@ -24,7 +24,8 @@ checkNews:
         As you scroll somewhat absentmindedly through the news, one story catches your eye.
         An image of a flooded town off of the Missisippi River.
         Murky brown water everywhere, past waist height.
-        Cars, buildings, and trees barely above the surface.[delay 1000][image https://images.foxtv.com/static.fox7austin.com/www.fox7austin.com/content/uploads/2020/02/932/524/Flooding-in-MIssissippi-.jpg?ve=1&tl=1]
+        Cars, buildings, and trees barely above the surface.
+        [image https://images.foxtv.com/static.fox7austin.com/www.fox7austin.com/content/uploads/2020/02/932/524/Flooding-in-MIssissippi-.jpg?ve=1&tl=1]
         Nature is a cruel mistress, you think.
         But then again, we've always had to deal with natural disasters, right?
         Well, thats enough of the news for today. That stuff is always just depressing.
@@ -94,17 +95,23 @@ mess:
     ]
 ccs:
     text: '''
-        CCS Study
+        This study is about CCS, Carbon Capture and Storage. It's a technology that significantly reduces the carbon emissions of coal and natural gas power plants, by up to 90%. So of course, the fossil fuels corporation you work for is pretty interested in it as a way to keep their business... up to date with the times. This study is an overview of past and current research into CCS technologies, some of which promise to reduce emissions by up to 95% or even more. It also has some low level explanations of how the technology works, such as some diagrams of possible processes.
+        [image https://ars.els-cdn.com/content/image/1-s2.0-S0048969720367346-gr1.jpg]
+        Of course, the extra work needed to capture and store the carbon dioxide does make the cost of electricity for CCS plants higher, and the technology can never reduce emissions to near zero like renewables. The study does note that, but your supervisor said not to focus on that part so much. After all, how much harm could just a little more carbon dioxide really do?
         '''
     loop: 'mess'
 efficiency:
     text: '''
-        Efficiency Study
+        This study is an analysis of the cost efficiency of various fossil fuel energy sources compared to renewable sources. The study found that all together, renewables cost about 6-8 cents per kilowatt-hour (kWh), while fossil fuel sources like coal and natural gas cost about 4-5 cents per kWh, depending on the source. Your supervisor was very insistent you highlight that while a 2 or 3 cent difference may not seem like much, if you multiply it over the whole power grid, it starts to add up. And you suppose that makes sense; if the government is going to be subsidizing energy, it might as well get the most out of each dollar.
+        The study, being funded by the company you work for, neglects to mention the cost increases from the use of CCS, which you've been told raise it up to about the same levels as renewables, if not more. But you've been assured that your company is working hard to make CCS cheaper, and once they do that they'll be sure to switch over. So that makes you feel a little better... you think. Until then though the company is still intending to focus on non-CCS plants. You won't be mentioning that either.
         '''
     loop: 'mess'
 lca:
     text: '''
-        Lifecycle Analysis
+        This study you're not supposed to have. Your supervisor had been making a big fuss about some new lifecycle analysis that would show fossil fuels weren't as bad as everyone thought, but a couple of months later they had just stopped talking about it. So you did a little digging, found the researchers who did the study, and asked them for a copy. 
+        Once they sent it to you, you quickly realized why you hadn't heard any more about it. Rather than find evidence that fossil fuels weren't as destructive as people thought, they actually found evidence that certain aspects of the process were more destructive than initially thought.
+        You're not sure why you kept the study. You certainly aren't going to use it at today's hearing, that would be... bad for your job security, to say the least. But something about it keeps nagging at you. Maybe it's the enormity of it all. You know about climate change—it's hard to ignore it with all the protests that have been going on recently—but as far as you can tell, everything seems to be fine. Sure, there's been a lot of floods in some other states recently, and there's definitely been a lot of heatwaves here in Texas, but none of it seems that bad. But seeing the sheer amount of carbon being emitted, together with references to the direct and indirect effects, even in a fossil fuel funded study; it makes you uncomfortable, to say the least.
+        You put the study back in the folder. You shouldn't be distracting yourself with that today. This is possibly the biggest hearing of your career. If you mess this up, it'll mean the majority of fossil fuel subsidies will be diverted to renewable energy, and less money for your employer means less money for you. No mistakes today.
         '''
     loop: 'mess'
 continue:
