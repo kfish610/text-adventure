@@ -59,7 +59,7 @@ getUp:
 turnOff:
     text: '''
         As you go over to turn off the air conditioning, you take a look out the window. Just as you expected, its cloudy and rainy. The A/C must have been making the temperature even colder than it already was outside.
-        You've had it turned all the way up for the past few days due to the heatwave. You'd been worried that it wasn't going to end: you had never seen a heatwave go for that long or that hot in your life. Clearly it's over now, though, if the temperature is anything to go by.
+        You've had it turned all the way up for the past few weeks due to the heatwave. You'd been worried that it wasn't going to end: you had never seen a heatwave go for that long or that hot in your life. Clearly it's over now, though, if the temperature is anything to go by.
         You adjust the A/C's settings in its app on your AR glasses. On to more important things.
         '''
     loop: 'getUp'
@@ -108,7 +108,7 @@ efficiency:
     loop: 'mess'
 lca:
     text: '''
-        This study you're not supposed to have. Your supervisor had been making a big fuss about some new lifecycle analysis that would show fossil fuels weren't as bad as everyone thought, but a couple of months later they had just stopped talking about it. So you did a little digging, found the researchers who did the study, and asked them for a copy. 
+        This study you're not supposed to have. Your supervisor had been making a big fuss about some new lifecycle analysis that would show fossil fuels weren't as bad as everyone thought, but a couple of months later they had just stopped talking about it. So you did a little digging, found the researchers who did the study, and asked them for a copy.
         Once they sent it to you, you quickly realized why you hadn't heard any more about it. Rather than find evidence that fossil fuels weren't as destructive as people thought, they actually found evidence that certain aspects of the process were more destructive than initially thought.
         You're not sure why you kept the study. You certainly aren't going to use it at today's hearing, that would be... bad for your job security, to say the least. But something about it keeps nagging at you. Maybe it's the enormity of it all. You know about climate change—it's hard to ignore it with all the protests that have been going on recently—but as far as you can tell, everything seems to be fine. Sure, there's been a lot of floods in some other states recently, and there's definitely been a lot of heatwaves here in Texas, but none of it seems that bad. But seeing the sheer amount of carbon being emitted, together with references to the direct and indirect effects, even in a fossil fuel funded study; it makes you uncomfortable, to say the least.
         You put the study back in the folder. You shouldn't be distracting yourself with that today. This is possibly the biggest hearing of your career. If you mess this up, it'll mean the majority of fossil fuel subsidies will be diverted to renewable energy, and less money for your employer means less money for you. No mistakes today.
@@ -138,10 +138,10 @@ leave:
     ]
 normalCar:
     text: '''
-        Despite the novelty of a flying car, a standard car is probably the more reasonable option. It's certainly the most economical option, though the difference between them has been getting surprisingly small, all considered. The car arrives-the decrease of human drivers has made traffic almost a thing of the past at this point-and you get in.
-        [background traffic.mp3]As the car drives off, you look out the window. You see a lot of business, but weirdly, most of them seem empty. Then you realize why. On nearly every building, there's an AR flyer attached to it, with something along the lines of "now hiring". You'd seen a piece in the news recently about how low-wage workers were getting hit hard by heat stress in the recent string of heatwaves. The air conditioners weren't up to the task of a nearly week long heatwave. But you had assumed it was just a couple of people that were effected. This doesn't really seem like just a couple of people, though. 
+        Despite the novelty of a flying car, a standard car is probably the more reasonable option. It's certainly the most economical option, though the difference between them has been getting surprisingly small, all considered. The car arrives&mdash;the decrease of human drivers has made traffic almost a thing of the past at this point&mdash;and you get in.
+        [background traffic.mp3]As the car drives off, you look out the window. You see a lot of businesses, but weirdly, most of them seem empty. Then you realize why. On nearly every building, there's an AR flyer attached to it, with something along the lines of "now hiring". You'd seen a piece in the news recently about how low-wage workers were getting hit hard by heat stress in the recent string of heatwaves. The air conditioners weren't up to the task of the weeks of heatwave. But you had assumed it was just a couple of people that were effected. This doesn't really seem like just a couple of people, though.
         But you're sure this is just a temporary thing. It's a once in a lifetime heatwave, after all. Then again, you'd seen on the weather forecast that temperatures were supposed to go back up the rest of this week, and that today is just an outlier. But... they're probably just missing something. You're sure things will go back to normal soon. Probably.
-        You're shaken out of your thoughts by the car slowing down and stopping. You're here. 
+        You're shaken out of your thoughts by the car slowing down and stopping. You're here.
         Time to go inside and get ready for the hearing.
         '''
     options: [
@@ -155,14 +155,14 @@ flyingCar:
     text: '''
         You decide on the flying car. You can spend a little extra just for today; it is an important day after all. Plus, it'll get you there faster. And the views are much nicer. You wait a minute, and then hear the whirring of the rotors on the car. To be honest you had always imagined flying cars as floating, or maybe with wings like an airplane. But you suppose technology is rarely exactly what we expect it to be. You get in the car, and it takes off.
         [background flying.mp3]You look out the window as the ground drifts further from you. You're not sure you'll ever get used to that. Still, it's a nice view. Unfortunately, your view is occasionally blocked by an advertisement. It's not exactly surprising that they're all over the sky; we put billboards everywhere on highways. But it would have been nice to leave this sight unblemished. At least they're not physically in the air, only visible in your AR glasses. In fact, usually you'd just take them off, but you have to be watching for messages from your company, just in case. So you're going to have to deal with the occasional ad drifting into view.
-        One in particular catches your eye. At first, it just looked like a cloud of smoke, but then you see it reform in the letters "DECARBONIZE". Well, it's an impressive rendering, you'll give them that. The smoke then continues to reform into different words and sentences. 
+        One in particular catches your eye. At first, it just looked like a cloud of smoke, but then you see it reform in the letters "DECARBONIZE". Well, it's an impressive rendering, you'll give them that. The smoke then continues to reform into different words and sentences.
         "Do you really want this in your air?"[delay 1000]
         "We're at a tipping point"[delay 1000]
         "There is no Earth 2"[delay 1000]
         "There's still time to fix this"[delay 1000]
         "Zero carbon by 2100"[delay 1000]
         It then links to a website, which you quickly wave away. You scoff. Zero carbon? There's no way we could do that, right? And even if we could, carbon dioxide isn't <em>that</em> bad. Right? The lifecycle analysis in your folder nags at you... but you push the thought away. Focus. Your supervisor told you not to worry about the environmental impacts so much. So it's probably fine.
-        You're shaken out of your thoughts by the car landing. You're here. 
+        You're shaken out of your thoughts by the car landing. You're here.
         Time to go inside and get ready for the hearing.
         '''
     options: [
@@ -170,5 +170,55 @@ flyingCar:
             icon: 'arrow-up-from-bracket'
             text: 'Enter'
             next: 'enter'
+        }
+    ]
+enter:
+    text: '''
+        You enter the building. There's a small reception area, where you put your name in and ask if your room is ready. But apparently it's still being used for a few more minutes, so you sit down. And then you see them. A face you recognize... unfortunately. They're a lobbyist too, but for a climate change activism group, and they're going to the same hearing as you. Small world.
+        There's only a couple of chairs in the waiting room, so you sit down closer than you'd like to them. They keep stealing glances at you, and you're pretty sure they know who you are too. Do you want to talk to them? Or just keep sitting for a few minutes?
+        '''
+    options: [
+        {
+            icon: 'comment'
+            text: 'Talk to them'
+            next: 'talk'
+        }
+        {
+            icon: 'chair'
+            text: 'Sit awkwardly'
+            next: 'sit'
+        }
+    ]
+sit:
+    text: '''
+        You keep sitting. You wouldn't want to talk to them anyway. You're sure they'd be super boring.
+        [normal .][delay 750][normal .][delay 750][normal .][normal .][delay 750][normal .][delay 750][normal .]
+        [normal .][delay 750][normal .][delay 750][normal .][normal .][delay 750][normal .][delay 750][normal .]
+        Finally, your room is ready. Time for the hearing. You take a deep breath, and get up.
+        '''
+    options: [
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Attend the hearing'
+            next: 'attend'
+        }
+    ]
+talk:
+    text: '''
+        You decide you might as well fill the time with a little conversation. At worst, maybe you'll know a bit more about how they're going to respond to you.
+        "So... how about that weather today? Crazy how it changed so fast." you say.[delay 1000]
+        They look at you for a second, then shake their head. "As if you care. You're probably going to use it as an excuse to pretend climate change isn't happening. I know your type. You're just in this for the money."[delay 1000]
+        You weren't expecting that. "Hey, I'm just trying to make conversation&mdash;"[delay 1000]
+        "Sure, and I'm just trying to prevent the world from burning. I mean, you've seen the heatwave these past few weeks. You really think everything is ok?"[delay 1000]
+        This conversation is... not going how you expected. "Yeah the heatwave is...[delay 500] weird. But my company is looking into ways to reduce its carbon emissions, or add more carbon offsets. It's going to be <em>fine</em>."[delay 1000]
+        They just shake their head again. "Look, you don't seem evil or anything. It just sounds like you're in denial. Maybe you know it too. But if you cared, you would be working with me, not with the fossil fuels industry. Or at least not actively defending them. So we have nothing to talk about."[delay 1000]
+        You start to respond, but the receptionist lets you know that your room is ready. 
+        You take a deep breath, and get up. It's time for the hearing.
+        '''
+    options: [
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Attend the hearing'
+            next: 'attend'
         }
     ]
