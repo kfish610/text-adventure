@@ -341,7 +341,7 @@ finishbad:
     options: [
         {
             icon: 'circle-xmark'
-            text: 'Ending: Wrong Side of History'
+            text: 'Wrong side of history'
             next: 'wrongside'
         }
     ]
