@@ -3,6 +3,7 @@ export type Option = {
     icon: string;
     next: string;
     return?: string;
+    if?: string;
 };
 
 export type Scene = {

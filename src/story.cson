@@ -192,8 +192,8 @@ enter:
 sit:
     text: '''
         You keep sitting. You wouldn't want to talk to them anyway. You're sure they'd be super boring.
-        [normal .][delay 750][normal .][delay 750][normal .][normal .][delay 750][normal .][delay 750][normal .]
-        [normal .][delay 750][normal .][delay 750][normal .][normal .][delay 750][normal .][delay 750][normal .]
+        [normal .][delay 750][normal .][delay 750][normal .][delay 750][normal .][delay 750][normal .][delay 750][normal .]
+        [normal .][delay 750][normal .][delay 750][normal .][delay 750][normal .][delay 750][normal .][delay 750][normal .]
         Finally, your room is ready. Time for the hearing. You take a deep breath, and get up.
         '''
     options: [
@@ -222,3 +222,245 @@ talk:
             next: 'attend'
         }
     ]
+attend:
+    text: '''
+        You log on. Everyone else seems to be logging on around the same time. There's a brief pause while the Representative leading today's hearing waits for everyone to join. Then, she starts. She introduces all of the other Representatives attending, briefly explains the content of todays hearing&mdash;the allocation of energy subsidies&mdash;and then hands it off to you.
+        You knew you were going to be first to speak. You take a deep breath. Now's the moment of truth.
+        You're going to present the two studies you were given. You made sure you could change around the order if you needed to, just in case you changed your mind on the best way to go about presenting them. So, which one would you like to present first?
+        '''
+    options: [
+        {
+            icon: 'industry'
+            text: 'CCS Study'
+            next: 'presentCCS1'
+        }
+        {
+            icon: 'fire-flame-simple'
+            text: 'Efficiency Study'
+            next: 'presentEfficiency1'
+        }
+        {
+            icon: 'arrows-rotate'
+            text: 'Lifecycle Analysis'
+            next: 'presentLCA'
+        }
+    ]
+presentCCS1:
+    text: '''
+        "Good morning, and thank you for having me today. I'd like to talk to you today about some extremely promising advances in Carbon Capture and Storage technology, also known as CCS. CCS is a very promising technology that could significantly reduce carbon emissions. It's been known to reduce emissions by up to 90%, and recent research has found methods than can reach up to 95% reductions, or even above that. Not only that, but this technology can be retrofitted onto existing plants, which means that with some investment, we could pivot our existing plants to use CCS, rather than building completely new energy sources. We feel it is the only responsible path to a cleaner future."
+        You continue on with some more specific details, but the pitch was the most important part. You hope it went over well.
+        You finish up this part of the presentation. On to the second study, right? Well, there's always the other study, but you wouldn't present that.
+        '''
+    options: [
+        {
+            icon: 'fire-flame-simple'
+            text: 'Efficiency Study'
+            next: 'presentEfficiency2'
+        }
+        {
+            icon: 'arrows-rotate'
+            text: 'Lifecycle Analysis'
+            next: 'presentLCA'
+        }
+    ]
+presentEfficiency1:
+    text: '''
+        "Good morning, and thank you for having me today. I'd like to talk to you today about some new research into the cost of various different energy sources. Renewable energy is very interesting, but it isn't necesarily cost-effective. Our research has found that on average, renewable energy costs around 6-8 cents per kilowatt-hour, while coal and natural gas costs around 4-5 cents per kilowatt-hour. That may not seem significant, but when we're talking about the entire energy grid of the United States, that's hardly a cost one can ignore. So while it is definitely good to consider renewable energy, we can hardly rely on it without incurring a hefty price."
+        You continue on with some more specific details, but the pitch was the most important part. You hope it went over well.
+        You finish up this part of the presentation. On to the second study, right? Well, there's always the other study, but you wouldn't present that.
+        '''
+    options: [
+        {
+            icon: 'industry'
+            text: 'CCS Study'
+            next: 'presentCCS2'
+        }
+        {
+            icon: 'arrows-rotate'
+            text: 'Lifecycle Analysis'
+            next: 'presentLCA'
+        }
+    ]
+presentCCS2:
+    text: '''
+        "I'd also like to talk to you about some extremely promising advances in Carbon Capture and Storage technology, also known as CCS. CCS is a very promising technology that could significantly reduce carbon emissions. It's been known to reduce emissions by up to 90%, and recent research has found methods than can reach up to 95% reductions, or even above that. Not only that, but this technology can be retrofitted onto existing plants, which means that with some investment, we could pivot our existing plants to use CCS, rather than building completely new energy sources. We feel it is the only responsible path to a cleaner future."
+        You continue on with some more specific details, but again, the pitch was the most important part.
+        Well, that's it for your time. Now to hear from the rest of those attending the hearing.
+        '''
+    options: [
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Finish'
+            next: 'finishbad'
+        }
+    ]
+presentEfficiency2:
+    text: '''
+        "I'd also like to talk to you about some new research into the cost of various different energy sources. Renewable energy is very interesting, but it isn't necesarily cost-effective. Our research has found that on average, renewable energy costs around 6-8 cents per kilowatt-hour, while coal and natural gas costs around 4-5 cents per kilowatt-hour. That may not seem significant, but when we're talking about the entire energy grid of the United States, that's hardly a cost one can ignore. So while it is definitely good to consider renewable energy, we can hardly rely on it without incurring a hefty price."
+        You continue on with some more specific details, but again, the pitch was the most important part.
+        Well, that's it for your time. Now to hear from the rest of those attending the hearing.
+        '''
+    options: [
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Finish'
+            next: 'finishbad'
+        }
+    ]
+presentLCA:
+    text: '''
+        The nagging finally gets to you. You can't do this. You know exactly what you saw in that study and... it's time to act on it.
+        "I'd like to talk to you about... [delay 500]something very important. You see, we all know that climate change is a problem, and that fossil fuels don't help with it. But it's likely even worse than you thought, so I recommend to the assembly that you divert most fossil fuel subsidies to renewables."
+        There's a gasp from someone who clearly forgot to mute themself.
+        "I know this may come as a surprise, but I truly feel this is the only responsible move. CCS isn't perfect; it costs more than normal fossil fuels, not to mention that it still emits considerably more than renewable energy sources. And I think it's clear that recent climate events have been worse and more extreme, and the association has been proven."
+        You went on about the specifics of the study. You can see the surprise on the faces of the various people attending, but you knew this needed to be said. You finish. It's done.
+        '''
+    options: [
+        {
+            icon: 'arrow-up-from-bracket'
+            text: 'Finish'
+            next: 'finishgood'
+        }
+    ]
+finishbad:
+    text: '''
+        The rest of the hearing is fairly boring. You're only sort of paying attention, until the lobbyist you met in the waiting room begins their section. At that part, you start listening.
+        They talk about the unprecendent amount of heatwaves, flooding, and other extreme climate events that have been occuring.[delay 500]
+        They talk about the rise in global temperature, nearly exactly in line with past predictions.[delay 500]
+        They talk about the amount of money it is costing us, just to cope with the changes.[delay 500]
+        They talk about the drop in prices for renewable energy, that is only continuing with further research.[delay 500]
+        They talk about the clear public interest in the climate, only getting stronger each day.[delay 500]
+        "Even if renewables cost us a bit more, surely that's worthwhile to save our planet? The evidence was clear 30 years ago. Now is the time for action. I hope you can all see that. Thank you."
+        And with that, the hearing was over. Thanks were said, and the hearing was dismissed. You log out of the meeting.
+        You pass the climate activism lobbyist, but they don't look at you.
+        You head home. You tell yourself that you did a good job. 
+        At the very least, your employers are very happy.
+        But still... you're not sure if you did what you should have.
+        Maybe, it could have gone a different way.
+        '''
+    options: [
+        {
+            icon: 'circle-xmark'
+            text: 'Ending: Wrong Side of History'
+            next: 'wrongside'
+        }
+    ]
+finishgood:
+    text: '''
+        You can barely wait for the hearing to finish. Even though you can't physically see people's eyes on you, you know they're all thinking about what you did. So are you. You can hardly believe it. It just... felt right. But now, you're realizing the repercussions. You're definitely going to lose your job. Was that worth it?
+        The lobbyist you met seems surprised as they give their testimony. They strongly agree with you, and note the change in climate same as you, although with more facts to back it up. At least they seem happy about it.
+        Finally, the hearing ends. You log out, and head back out into the waiting room.
+        You see the lobbyist again. They're smiling at you.
+        What do you do?
+        '''
+    options: [
+        {
+            icon: 'comment'
+            text: 'Talk to the lobbyist'
+            next: 'talkfinal'
+            if: 'talk'
+        }
+        {
+            icon: 'house-chimney'
+            text: 'Go Home'
+            next: 'home'
+        }
+    ]
+talkfinal:
+    text: '''
+        "Oh. Hi" you say.
+        They smile. "I've got to say, you surprised me in there. Maybe you're not just in it for the money."
+        "Well... I had a change of heart. I'd like to try to do better."
+        "You know, my company is hiring. If you're interested, maybe I could set you up for an interview. I'm sure they'd be interested."
+        You weren't expecting that either. They really are full of surprises.
+        How do you respond?
+        '''
+    options: [
+        {
+            icon: 'briefcase'
+            text: 'Take the job'
+            next: 'job'
+        }
+        {
+            icon: 'heart'
+            text: 'Ask them out'
+            next: 'heart'
+        }
+    ]
+job:
+    text: '''
+        You take the job. After a short interview process, they gladly hire you. They need all the help you can get.
+        Between your testimony and your active work after the fact, fossil fuel investment starts to rapidly dwindle. 
+        You even get involved in new legislature that would slowly phase out fossil fuel plants in favor of renewables.
+        It'll still be an uphill battle, but at least you're pretty sure you're on the right side of it.
+        '''
+    options: [
+        {
+            icon: 'file-lines'
+            text: 'Credits'
+            next: 'credits'
+        }
+    ]
+heart:
+    text: '''
+        [background wedding.mp3]To your surprise, they accept. You start dating, and it goes very well.
+        Eventually, after a while, you tie the knot.
+        You're a very supportive spouse, and you're sure you provide excellent moral support.
+        You must have, because you see clearly that fossil fuels are being phased out.
+        The tide has turned. It'll be a long road to carbon neutrality, but at least you're on it.
+        '''
+    options: [
+        {
+            icon: 'file-lines'
+            text: 'Credits'
+            next: 'credits'
+        }
+    ]
+home:
+    text: '''
+        You head home. Your phone is ringing incessantly, but you don't check it.
+        You know its your employers. Or at least, your previous employers. You don't have to check.
+        But, looking back at your folder, you realize, maybe this isn't such a bad thing.
+        After all, you had wanted to go back to school, hadn't you?
+        Maybe this is just the opportunity you need.
+        You decide it's not too late. You'll start applying right away.
+        At the very least, you'll certainly have a reputation. Hopefully it helps you.
+        '''
+    options: [
+        {
+            icon: 'file-lines'
+            text: 'Credits'
+            next: 'credits'
+        }
+    ]
+wrongside:
+    text: '''
+        The results of the budget hearing were ultimately in your favor. They diverted very little of the fossil fuel subsidies to renewables.
+        But it was a very temporary victory. The year after that, the subsidies were reallocated anyway.
+        A change in administration, among other things. But ultimately, it was a losing battle. The public opinion was shifting. It was only a matter of time.
+        At the back of your mind, you think maybe, you could have been on the right side. But that time passed.
+        At least you got the money though, right?
+        '''
+    options: [
+        {
+            icon: 'file-lines'
+            text: 'Credits'
+            next: 'credits'
+        }
+    ]
+credits:
+    text: '''
+        Website created by <a href="https://github.com/kfish610/text-adventure">Kevin Fisher</a>.
+        Writing and Research by Kevin Fisher, Leo Lee, and Kevin Xu.
+        CCS information from <a href="https://doi.org/10.1016/j.scitotenv.2020.143203">Wilberforce et al.</a>
+        Cost efficiency information from <a href="https://doi.org/10.1016/S1750-5836(07)00024-2">Viebahn et al.</a>
+        Alarm clock sound effect from <a href="https://www.youtube.com/watch?v=a0gnGkmF8Qk">Sound Effect Master</a>.
+        Flood image from <a href="https://www.fox7austin.com/news/historic-flooding-hits-mississippi-tennessee-with-more-drenching-rains-expected">Fox 7 Austin</a>.
+        Click sound from <a href="https://opengameart.org/content/click">qubodup on OpenGameArt</a>.
+        Helicopter sound effect from <a href="https://www.youtube.com/watch?v=2RtDgTm6rn4">Olavo Junior</a>.
+        Traffic sound effect from <a href="https://www.youtube.com/watch?v=D1lXPlg0sz0">RoyaltyFreeSounds</a>.
+        Icons from <a href="https://fontawesome.com/">Font Awesome</a>.
+
+        Thank you for playing!
+        '''
+    options: []

@@ -76,6 +76,7 @@ export class PlayingState extends State {
     currSound = "click.wav";
 
     lock = false;
+    end = false;
 
     override init(term: Terminal) {
         this.audio.loop(false);
@@ -87,7 +88,7 @@ export class PlayingState extends State {
     }
 
     override update(dt: number, term: Terminal) {
-        if (this.lock) return;
+        if (this.lock || this.end) return;
 
         if (this.buttons.enabled) return;
 
@@ -102,6 +103,10 @@ export class PlayingState extends State {
         if (this.remainingText.length == 0) {
             this.audio.stop();
             term.break();
+            if(this.scene == "credits") {
+                this.end = true;
+                return;
+            }
             this.buttons.enable(this.scene);
             return;
         }

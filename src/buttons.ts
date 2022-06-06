@@ -9,6 +9,7 @@ export default class Buttons {
     enabled = false;
     buttons: HTMLButtonElement[] = [];
     firstExit = true;
+    talked = false;
 
     constructor(elem: HTMLElement) {
         this.elem = elem;
@@ -29,6 +30,14 @@ export default class Buttons {
         let step = options.length == 4 ? 6 : 12/options.length;
         for (let i = 0; i < options.length; i++) {
             const option = options[i];
+            if (option.if != undefined) {
+                if (!this.talked) {
+                    options.splice(i, 1);
+                    step = options.length == 4 ? 6 : 12/options.length;
+                    i--;
+                    continue;
+                }
+            }
             let button = document.createElement("button");
             button.className = "overlay";
             button.innerHTML =  "> <i class=\"fa-solid fa-"+ option.icon +"\"></i> " + option.text;
@@ -48,6 +57,9 @@ export default class Buttons {
 This means that if there's any other options you haven't tried yet, \
 after clicking this option you won't be able to read them without restarting the game. \
 Are you sure you want to continue?")) return;
+                }
+                if (scene == "talk") {
+                    this.talked = true;
                 }
                 this.selected = option.next;
                 this.text = "<i class=\"fa-solid fa-"+ option.icon +"\"></i> " + option.text;
